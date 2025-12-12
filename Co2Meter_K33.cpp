@@ -46,9 +46,33 @@ void Co2Meter_K33::wakeSensor() {
 	// PORTC |= (1 << 4); // Pull pin high again
 	// TWCR |= (1 << 2); // I2C is now enabled
 	// delay(1);
-	Wire.beginTransmission(devAddr);
-	Wire.write(0x00);
-	Wire.endTransmission();
+	// Wire.beginTransmission(devAddr);
+	// Wire.write(0x00);
+	// Wire.endTransmission();
+
+	
+void i2c_recover_sda()
+{
+    // 1. Disable I2C engine
+    Wire.end();
+
+    // 2. Manually control SDA pin (pin 11 on MKR WAN 1310)
+    const int SDA_PIN = 11;
+
+    pinMode(SDA_PIN, OUTPUT);
+
+    // Pull SDA low
+    digitalWrite(SDA_PIN, LOW);
+    delay(1);
+
+    // Release SDA high
+    digitalWrite(SDA_PIN, HIGH);
+    delay(1);
+
+    // 3. Re-enable I2C
+    Wire.begin();
+    delay(1);
+}
 }
 
 ////////////////////////////////////////////////////////////////// 
