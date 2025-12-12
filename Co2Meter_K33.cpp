@@ -39,13 +39,16 @@ void Co2Meter_K33::wakeSensor() {
 	// 3. Toggle the line low for ~1ms to wake the micro up. Enable I2C Engine
 	// 4. Wake a millisecond.
 	
-	TWCR &= ~(1 << 2); // Disable I2C Engine
-	DDRC |= (1 << 4); // Set pin to output mode
-	PORTC &= ~(1 << 4); // Pull pin low
-	delay(1);
-	PORTC |= (1 << 4); // Pull pin high again
-	TWCR |= (1 << 2); // I2C is now enabled
-	delay(1);
+	// TWCR &= ~(1 << 2); // Disable I2C Engine
+	// DDRC |= (1 << 4); // Set pin to output mode
+	// PORTC &= ~(1 << 4); // Pull pin low
+	// delay(1);
+	// PORTC |= (1 << 4); // Pull pin high again
+	// TWCR |= (1 << 2); // I2C is now enabled
+	// delay(1);
+	Wire.beginTransmission(devAddr);
+	Wire.write(0x00);
+	Wire.endTransmission();
 }
 
 ////////////////////////////////////////////////////////////////// 
