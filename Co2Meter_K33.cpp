@@ -24,7 +24,27 @@ Co2Meter_K33::Co2Meter_K33(uint8_t address) {
 
 Co2Meter_K33::~Co2Meter_K33(){}
 
+K33Reading Co2Meter_K33::getReadings(){
+	K33Reading pkt{};
+    pkt.valid = false;
 
+    initPoll();
+    delay(16000);  // sensor warmup per K33 datasheet
+
+    pkt.temp = readTemp();
+    delay(20);
+
+    pkt.rh = readRh();
+    delay(20);
+
+    pkt.co2 = readCo2();
+
+    if (pkt.co2 >= 0) {
+        pkt.valid = true;
+    }
+
+    return pkt;
+}
 ///////////////////////////////////////////////////////////////////
 // Function : void wakeSensor()
 // Executes : Sends wakeup commands to K33 sensors.

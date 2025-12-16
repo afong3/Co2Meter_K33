@@ -25,6 +25,13 @@
 
 #define K33_BLG_ELG_ADDRESS 0x7F
 
+struct K33Reading{
+	double temp;
+	double rh;
+	double co2; 
+	bool valid;
+};
+
 class Co2Meter_K33
 {
 public:
@@ -36,6 +43,7 @@ public:
 	double readCo2();
 	double readTemp();
 	double readRh();
+	K33Reading getReadings();
 private:
 	int devAddr;
 	int co2_value;
