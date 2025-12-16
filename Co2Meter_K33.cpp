@@ -64,7 +64,6 @@ void Co2Meter_K33::wakeSensor() {
 
     // Release SDA high
     digitalWrite(SDA_PIN, HIGH);
-    delay(1);
 
     // 3. Re-enable I2C
     Wire.begin();
